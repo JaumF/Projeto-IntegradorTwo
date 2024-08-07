@@ -5,5 +5,6 @@ from myapp import views  # Certifique-se de que as views estão importadas corre
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.entrar, name='entrar'),  # Mapeia a URL para a view de login
-    path('home/', views.home, name='home'),
+    path('chamados/', views.chamados, name='chamados'),
+    path('sair/', views.sair, name='sair'),
 ]

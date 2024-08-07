@@ -4,12 +4,10 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.views.decorators.http import require_POST
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth import logout
 
-def home(request):
-    return render(request, 'home.html')
-
-def index(request):
-    return render(request, 'index.html')
+def chamados(request):
+    return render(request, 'chamados.html')
 
 
 @require_http_methods(["GET", "POST"])
@@ -28,10 +26,16 @@ def entrar(request):
 
         if usuario is not None:
             login(request, usuario)
-            return redirect('home')  # Redireciona para a página inicial após login
+            return redirect('chamados')  # Redireciona para a página inicial após login
 
         messages.error(request, 'Senha incorreta.')
         return redirect('entrar')  # Redireciona para a página de login se a autenticação falhar
 
     # GET request: renderiza o template de login
     return render(request, 'login.html')
+
+@require_POST
+def sair(request):
+    logout(request)
+    messages.success(request, 'Você foi desconectado com sucesso.')
+    return redirect('entrar')  # Redireciona para a página de login
